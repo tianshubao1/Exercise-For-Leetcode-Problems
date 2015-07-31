@@ -1,0 +1,1221 @@
+// insertion
+	public static void insertion(int[] input){
+		int cursor;
+		int j;
+		for(int i = 1;i<input.length;i++){
+			cursor = input[i];
+			j = i - 1;
+			while(j>=0&&input[j] > cursor )
+				input[j+1] = input[j--];
+			input[j+1] = cursor;
+		}
+	}
+
+
+
+//
+import java.util.HashMap
+	public static int[] twoSum(int[] input,int target)throws IllegalArgumentException{
+		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+		for(int i=0; i < input.length; i++){
+			if(map.containsKey(target - input[i]))
+				return new int[]{map.get(target-input[i]),i};
+			map.put(input[i],i);
+		}
+		throw new IllegalArgumentException("no two sum");
+	}	
+	
+public static int[] twoSum(int[] input,int target)throws IllegalArgumentException{
+	int j;
+	for(int i=0; i < input.length; i++){
+		j = bsearch(input,target - 1,i);
+		if(j != -1)
+			return new int[]{i,j};
+	}
+	throw new IllegalArgumentException("no two sum");
+}
+	public static int bsearch(int[] input,int value,int start){
+		int L =start;
+		int R =input.length-1;
+		int M;
+		while(L<R){
+			M = (L+R)/2;
+			if(value <= input[M])
+				R = M;
+			else
+				L = M+1;
+		}
+		return (L==R && input[L]==value)?L:-1;
+	}
+
+
+
+			
+public static boolean isPalindrome(String s){
+	int i = 0;
+	int j = s.length()-1;
+	while(i < j){
+		while(i<j&&!Character.isLetterOrDigit(s.charAt(i))) i++;
+		while(i<j&&!Character.isLetterOrDigit(s.charAt(i))) j--;
+		if(s.charAt(i) != s.charAt(j))
+			return false;
+		i++;
+		j--;
+	}
+	return true;
+}
+public static int strstr(String haystack,String needle){
+	for(int i = 0;;i++){
+		for(int j = 0;;j--){
+			if(j == needle.length()) return i;
+			if(i+j == haystack.length()) return -1;
+			if(needle.charAt(j) != haystack.charAt(i+j))break;
+		}
+	}
+}
+
+
+//myself:does not contain leading and trailing spaces
+	public static String reverse(String s){
+		StringBuilder sb = new StringBuilder();
+		int mark = s.length();
+		for(int i = s.length()-1;i>=0;i--){
+			if(s.charAt(i)==' '){
+				sb.append(s.substring(i+1,mark));
+				mark = i;
+				if(i != 0&& i != s.length()-1)
+					sb.append(' ');
+			}
+			else if(i == 0)
+				sb.append(s.substring(0,mark));
+
+		}
+		return sb.toString();
+	}
+
+//8.String to Integer
+private static final int maxDiv = Integer.MAX_VALUE;
+public static int str2int(String str){
+	int i = 0;
+	int len = str.length();
+	int num = 0;
+	int sign = 1;
+	while(i < len && Character.isWhitespace(str.charAt(i))) i++;
+	if(str.charAt(i) == '+')
+		i++;
+	else{ 
+		sign = -1;
+		i++;
+	}
+	while(i < len && Character.isDigit(str.charAt(i))){
+		num = num*10 + getNumericValue(str.charAt(i));
+		if(num > maxDiv)
+			return sign == 1? Integer.MAX_VALUE:Integer.MIN_VALUE;
+		i++;
+	}
+	return sign*num;
+} 
+
+//9.valid number
+	public static boolean valid(String str){
+		int i = 0;
+		int len = str.length();
+		boolean isNumeric = false;
+		while(i<len && Character.isWhitespace(str.charAt(i))) i++;
+		if(i<len && (str.charAt(i) == '-'||str.charAt(i) == '+'))
+			i++;
+		while(i < len && Character.isDigit(str.charAt(i))){
+			i++;
+			isNumeric = true;
+		}
+		if(i<len && str.charAt(i) == '.'){
+			i++;
+			while(i<len && Character.isDigit(str.charAt(i))){ 
+				i++;
+				isNumeric = true;
+			}
+		}
+		if(i<len && str.charAt(i) == 'e'){
+			i++;
+			isNumeric = false;
+			if(i<len && (str.charAt(i) == '-'||str.charAt(i) == '+'))
+				i++;
+			while(i<len && Character.isDigit(str.charAt(i))){ 
+				i++;
+				isNumeric = true;
+			}
+		}
+		while(i<len && Character.isWhitespace(str.charAt(i))) i++;
+		return i==len && isNumeric == true;
+	}
+
+
+//10.longest substring without repeating(without number)原创！！(错的。。。)
+public static lengthOfLongestSubstring(String s){
+	boolean[] exist = new boolean[256];
+	int i = 0;maxlen = 0;
+	for(int i = 0; i<s.length(); i++){
+		exist[(int)s.charAt(i)] = true;
+	}
+	for(boolean b:exist[]){
+		if(b == true)
+			maxlen++;
+	}
+	return mexlen;
+}
+
+//11.longest substring with at most two distinct characters(回头想)
+public static longestMost2distinct(String s){
+	int i=0,j=0;
+	char[] num = new char[2]();
+	for(int k = 0; k<s.length();k++){
+		if(s.charAt(j))
+
+//12.Missing Range
+public static String[] findMissingRange(int[] input,int start,int end){
+	List<String> ranges = new ArrayList<String>();
+	for(int i = 1;i<input.length();i++){
+		if(input[i]-input[i-1]>1){
+			if(input[i]-input[i-1]>2)
+				ranges.add("input[i-1]+1"+"->"+"input[i]-1");
+			else
+				ranges.add("input[i-1]+1");
+		}
+	}
+}
+
+
+//13.longest palindrome substring
+//自己写的，sample answer is briefer
+public static String longestPalindrome(String s){
+		int len1=0,len2=0,max=0,temp=0,start=0,end=0;
+		for(int i = 0;i<s.length();i++){
+			len1 = center(s,i,i);
+			len2 = center(s,i,i+1);
+			temp = Math.max(len1,len2);
+			if(temp > max){
+				max = temp;
+				if(len1 == temp){
+					start = i-temp/2;
+					end = i+temp/2;
+				}
+				else{
+					start = i-temp/2+1;
+					end = i+temp/2;
+				}
+			}
+		}
+		return s.substring(start,end+1);
+	}
+	public static int center(String s,int L,int R){
+		int len = 0;
+		if(L == R){
+			L--;
+			R++;
+		}
+		while(0<L && R<s.length()){
+			if((s.charAt(L) == s.charAt(R))){
+				len = R-L+1;
+				L--;
+				R++;
+			}
+			else return len;
+		}
+		return len;
+	}
+
+
+//14.one edit distance
+public static boolean oneedit(String one,String two){
+	int len1 = one.length();
+	int len2 = two.length();
+	int i = 0;
+	int shift = len2-len1;
+	if(len1 > len2) return oneedit(two,one);
+	if(len2-len1 > 1) return false;
+	while((i < len1) && one.charAt(i)==two.charAt(i))i++;
+	if(shift == 1)
+		while((i < len1) && one.charAt(i)==two.charAt(i+1))i++;
+	if(i == len1)
+		return true;
+	else return false;
+}
+//sample solution,非常巧妙
+	public static boolean oneedit(String one,String two){
+		int len1 = one.length();
+		int len2 = two.length();
+		int i = 0;
+		int shift = len2-len1;
+		if(len1 > len2) return oneedit(two,one);
+		if(len2-len1 > 1) return false;
+		
+		while((i < len1) && one.charAt(i)==two.charAt(i))i++;
+		if(i == len1) return shift>0;
+		if(shift == 0)i++;
+		while((i < len1) && one.charAt(i)==two.charAt(i+shift))i++;
+		return i == len1;
+	}
+
+
+
+//skip 15.16
+to 17. reverse integer
+public static final int n = Integer.MAX_VALUE;
+public static int reverse(int n){
+	int digit;
+	int res = 0;
+	while(n > 0){
+		digit = n%10;
+		n = n/10;
+		res = res*10 + digit;
+		if(Math.abs(res)>Integer.MAX_VALUE) return 0;
+	}
+	return res;
+}
+
+
+//18.plus one
+public static void plusone(List<Integer> digits){
+	int value;
+	for(int i = 0;i< digits.size();i++){
+		value = digits.get(i);
+		if(value != 9){
+			digits.set(i,value+1);
+			return;
+		}
+		else digits.set(i,0);
+			
+	}
+	digits.add(0);
+	digits.set(0,1);
+	return;
+}
+
+//19.palindrome number很巧妙地去头尾法
+public static boolean isPalindrome(int num){
+	int div = 1;
+	if(num < 0) return false;
+	while(num/div > 0) div*= 10;
+	while(num > 0){
+		if(num/div != num%10)
+			return false;
+		num = num%div/10;
+	}
+	return true;
+}
+
+
+//20.merge two sorted lists
+//my version
+	public static LinkedList<Integer> merge(LinkedList<Integer> one,LinkedList<Integer> two){
+		LinkedList<Integer> l = new LinkedList<Integer>();
+		int len1 = one.size();
+		int len2 = two.size();
+		int i=0,j=0,k=0;
+		while(j<len1 && k<len2){
+			if(one.get(j) < two.get(k)){
+				l.add(i++,one.get(j++));
+			}
+			else l.add(i++,two.get(k++));
+		}
+		while(j < len1)l.add(i++,one.get(j++));
+		while(k < len2)l.add(i++,two.get(k++));
+		return l;
+	} 
+
+
+
+
+//21.add two number,添加了ListNode
+sample solution give a different method
+	public static ListNode add2(ListNode one,ListNode two){
+		int num1 = 0;
+		int num2 = 0;
+		int mask = 1;
+		ListNode current = one;
+		while(current != null){
+			num1 = num1 + current.data*mask;
+			mask *= 10;
+		}
+		current = two;
+		mask = 1;
+		while(current != null){
+			num2 = num2 + current.data*mask;
+			mask *= 10;
+		}
+		int sum = num1 + num2;
+		int digit;
+		current = new ListNode();
+		ListNode head = current; 
+		while(sum/10 > 0){
+			digit = sum%10;
+			current.next = new ListNode(digit,null);
+			current = current.next;
+			sum /= 10;
+		}
+		return head.next;
+	}
+
+
+
+
+
+//22.swap node in pairs,自己写的
+public static ListNode swapNode(ListNode head){
+		ListNode current1 = head;
+		ListNode current2 = head.next;
+		ListNode temp = new ListNode(0,head);
+		ListNode res = temp;
+		while(current2 != null){
+			current1.next = current2.next;
+			current2.next = current1;
+			temp.next = current2;
+			
+			temp = current1;
+			current1 = current1.next;
+			if(current1 == null)
+				break;
+			else current2 = current1.next;
+		}
+		return res.next;
+	}	
+
+//25.validate binary tree
+public class Solution {
+	public boolean isValidBST(TreeNode root){
+		return isValidBST(root,null,null);
+	}
+	public boolean isValidBST(TreeNode p,Integer low,Integer high){
+		if(p == null)
+			return true;
+		return (low == null||p.val>low) 
+		    &&(high == null||p.val < high) 
+		    && isValidBST(p.left,low,p.val)
+		    && isValidBST(p.right,p.val,high);
+	}
+}
+
+//26.Maximum depth
+public int maxDepth(TreeNode root){
+	if(root == null) return 0;
+	return Math.max(maxDepth(root.left,root.right))+1;
+}
+
+//27. minHeight
+public int minDepth(TreeNode root){
+	if(root == null) return 0;
+	Queue<TreeNode> q = new LinkedList<TreeNode>();
+	q.add(root);
+	TreeNode rightMost = root;
+	int depth = 1;
+	TreeNode current;
+	while(!q.isEmpty()){
+		current = q.poll();
+		if(current.right==null && current.left==null)
+			break;
+		if(current.left != null)
+			q.add(current.left);
+		if(current.right != null)
+			q.add(current.right);
+		if(current == rightMost){
+			depth++;
+			rightMost = (current.right != null)?current.right:current.left;
+		}
+	}
+	return depth;
+}
+public int maxDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        return Math.max(maxDepth(root.left),maxDepth(root.right))+1;
+    }
+
+
+
+
+//28.convert sorted list to balanced binary tree
+    public TreeNode sortedArrayToBST(int[] num) {
+        return sortedArrayToBST(num,0,num.length-1);
+    }
+    public TreeNode sortedArrayToBST(int[] arr,int start,int end){
+        if(start>end)
+            return null;
+        int mid = (start+end)/2;
+        TreeNode curr = new TreeNode(arr[mid]);
+        curr.left=sortedArrayToBST(arr,start,mid-1);
+        curr.right=sortedArrayToBST(arr,mid+1,end);
+        return curr;
+    }
+
+
+
+
+
+//30.convert sorted list to balanced binary serach tree
+//32.binary tree upside down
+public TreeNode upsideDown(TreeNode root){
+	TreeNode p = root;
+	TreeNode parent = null;
+	TreeNode tempLeft,tempRight;
+	while(p.left != null){
+		tempLeft = p.left;
+		tempRight = p.right;
+		p.left = parent.right;
+		p.right = parent;
+		parent = p;
+		p = tempLeft;
+		parent.right = tempRight;
+	}
+	return p;
+}
+
+bottom to up
+public TreeNode upsideDown(TreeNode root){
+	TreeNode tr = dfsBU(root,null);
+	return  root;
+public TreeNode dfsBU(TreeNode p,TreeNode parent){
+	if(p == null){
+		root = parent;
+		return parent;
+	}
+	p = dfsBU(p.left,p);
+	p.right = parent;
+	p.left = (parent.right != null)parent.right:null;
+	return parent;
+}
+
+subSetSum
+public class Solution{
+	public static void main(String[] args){
+		int[] A = {1,-1,2,10,-8,10};
+		System.out.println(maxSubSum(A));
+	}
+	public static int maxSubSum(int[] A){
+		return maxSubSum(A,0,A.length-1);
+	}
+
+	public static int maxSubSum(int[] A,int start,int end){
+		if(start==end)
+			if(A[start]>0)
+				return A[start];
+			else 
+				return 0;
+		int mid = (start+end)/2;
+		int left = maxSubSum(A,start,mid);
+		int right = maxSubSum(A,mid+1,end);
+		
+		int Lmax=0;
+		int sum=0;
+		for(int i=mid;i>=start;i--){
+			sum += A[i];
+			Lmax = Math.max(sum,Lmax);
+		}
+
+		int Rmax=0;
+		sum=0;
+		for(int i=mid+1;i<=end;i++){
+			sum += A[i];
+			Rmax = Math.max(sum,Rmax);
+		}
+
+		return(Math.max((Lmax+Rmax),Math.max(left,right)));
+
+	}
+}
+
+subSetMultiplication
+
+public class Solution{
+	public static void main(String[] args){
+		int[] A = {1,1,2,10,-8,10};
+		System.out.println(maxSubMul(A));
+	}
+	public static int maxSubMul(int[] A){
+		return maxSubMul(A,0,A.length-1);
+	}
+
+	public static int maxSubMul(int[] A,int start,int end){
+		if(start==end)
+			if(A[start]>0)
+				return A[start];
+			else 
+				return 0;
+		int mid = (start+end)/2;
+		int left = maxSubMul(A,start,mid);
+		int right = maxSubMul(A,mid+1,end);
+		
+		int Lmax=1;
+		int Lmin=1;
+		int mulMax=1;
+		int mulMin=1;
+		for(int i=mid;i>=start;i--){
+			mulMax *= A[i];
+			mulMin *= A[i];
+			Lmax = Math.max(mulMax,Lmax);
+			Lmin = Math.min(mulMin,Lmin);
+		}
+
+		int Rmax=1;
+		int Rmin=1;
+		mulMax=1;
+		mulMin=1;
+		for(int i=mid+1;i<=end;i++){
+			mulMax *= A[i];
+			mulMin *= A[i];
+			Rmax = Math.max(mulMax,Rmax);
+			Rmin = Math.min(mulMin,Rmin);
+		}
+
+		return(Math.max(Math.max(Rmin*Lmin,Rmax*Lmax),Math.max(left,right)));
+
+	}
+}
+		
+
+
+48.
+public class Solution{
+	public static void main(String[] args){
+		int[] A = {1,2,4,6,7,10};
+		System.out.println(find(A,3));
+	}
+	public static int find(int[] A,int value){
+		return find(A,value,0,A.length-1);
+	}
+	public static int find(int[] A,int value,int start,int end){
+		if(start==end)
+			if(A[start]==value)
+				return start;
+			else if(A[start]>value)
+				return start;
+			else return start+1;
+		int m = (start+end)/2;
+		if(A[m]>value)
+			return find(A,value,start,m);
+		else if(A[m]<value)
+			return find(A,value,m+1,end);
+		else return m;
+	}
+
+}
+
+
+
+
+49.find min in sorted array
+	public static int find(int[] A){
+		return find(A,0,A.length-1);
+	}
+	
+	public static int find(int[] A,int start,int end){
+		while(start<end && A[start]>A[end]){
+			int mid = (start+end)/2;
+			if(A[mid]>A[end])
+				start = mid+1;
+			else
+				end = mid;
+		}
+	
+		return A[start];		
+	}
+
+
+
+class Wotou{
+	int id;
+}
+
+class Consumer extends Thread{
+	Basket b;
+	public Consumer(Basket b){
+		this.b = b;
+	}
+	public void run(){
+		for(int i=0;i<10;i++){
+			Wotou wt = new Wotou();
+			b.push(wt);
+			System.out.println("input one");
+		}
+	}
+}
+
+
+class Producer extends Thread{
+	Basket b;
+	public Producer(Basket b){
+		this.b = b;
+	}
+	public void run(){
+		for(int i=0;i<10;i++){
+			b.pop();
+			System.out.println("delete one");
+		}
+	}
+}
+
+
+class Basket{
+	int index = 0;
+	Wotou[] w = new Wotou[6];
+	public synchronized void push(Wotou wt){
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(index==6){
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		w[index] = wt;
+		index++;
+		System.out.println((index)+" wotous are left");
+		notify();
+	}
+	public synchronized Wotou pop(){
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if(index == 0)
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		index--;
+		System.out.println((index)+" wotous are left");
+		notify();
+		return w[index];
+	}
+}
+
+
+
+
+public class Solution{
+	public static void main(String[] args){
+		Basket b = new Basket();
+		Producer p = new Producer(b);
+		Consumer c = new Consumer(b);
+		p.start();
+		c.start();
+	}
+}
+
+
+
+import java.net.*;
+import java.io.*;
+public class Solution{
+	public static void main(String[] args)throws Exception{
+		ServerSocket ss = new ServerSocket(6666);
+		while(true){
+			Socket s = ss.accept();
+			InputStream is = s.getInputStream();
+			OutputStream os = s.getOutputStream();
+			DataOutputStream dos = new DataOutputStream(os);
+			DataInputStream dis = new DataInputStream(is);
+			String string;
+			
+			while((string=dis.readUTF()) != null){
+				System.out.println(string);
+			}
+			dos.writeUTF("hello client");
+			
+			dis.close();
+			dos.close();
+			s.close();
+		}
+	}
+}
+
+import java.io.*;
+import java.net.*;
+public class TPCClient {
+	public static void main(String[] args)throws Exception{
+		Socket s = new Socket("127.0.0.1",6666);
+		OutputStream os = s.getOutputStream();
+		DataOutputStream dos = new DataOutputStream(os);
+		
+		InputStream is = s.getInputStream();
+		DataInputStream dis = new DataInputStream(is);
+		
+		dos.writeUTF("helle server");
+		String string = null;
+		while((string=dis.readUTF())!=null){
+			System.out.println(string);
+		}
+		dos.flush();
+		dos.close();
+		dis.close();
+		s.close();
+	}
+}
+
+
+
+BufferedWriter bw = new BufferedWriter(new FileWriter("写到哪里"));
+BufferedReader br = new BufferedReader(new FileReader("des"));
+
+String b;
+for(int i=0;i<100;i++){
+	b = String.valueOf(Math.random()*1000);
+	bw.write(b);
+	bw.newLine();
+}
+bw.flush();
+
+for(;(b=br.read())!=-1;){
+	br.read(b);
+	sysout(b);
+}
+bw.close();
+br.close();
+}
+
+
+
+import java.io.*;
+
+public class Solution{
+	public static void main(String[] args){
+		String b;
+		try {
+			FileReader fis = new FileReader("D:/war3/test");
+			BufferedReader bw = new BufferedReader(fis);
+			FileWriter fos = new FileWriter("D:/war3/test.java");
+			BufferedWriter br = new BufferedWriter(fos);
+			while((b=bw.readLine()) != null){
+				System.out.print(b);
+				br.write(b);
+			}
+			fis.close();
+			bw.close();
+			fos.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(-1);
+		} catch (IOException e){
+			e.printStackTrace();
+			System.exit(-1);
+		}
+
+	}
+}
+
+
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(backTrack(9,5));
+	}
+	public static int backTrack(int m,int n){
+		return backTrack(m,n,m,n);
+	}
+	public static int backTrack(int m,int n,int c,int d){
+		if(c==1||d==1)
+			return 1;
+		else
+			return backTrack(m,n,c-1,d)+backTrack(m,n,c,d-1);
+	}
+}
+
+fibonacci and backtrack
+import java.util.Arrays;
+
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(backTrack(9,5));
+		System.out.println(Arrays.toString(fabonacci(5)));
+	}
+	public static int backTrack(int m,int n){
+		return backTrack(m,n,m,n);
+	}
+	public static int backTrack(int m,int n,int c,int d){
+		if(c==1||d==1)
+			return 1;
+		else
+			return backTrack(m,n,c-1,d)+backTrack(m,n,c,d-1);
+	}
+	
+	public static int[] fabonacci(int n){
+		if(n==1)
+			return new int[]{1,0};
+		int[] a = fabonacci(n-1);
+		int temp = a[0];
+		a[0] = a[0] + a[1];
+		a[1] = temp;
+		return a;
+	}
+	public static int climbChair(int n){//another approach
+		int p=1,q=1;
+		for(int i=2;i<=n;i++){
+			int temp = p;
+			p = p + q;
+			q = temp;
+		}
+		return p;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+new method for backTrack
+
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(backTrace(0,5,0,5));
+	}
+	public static int backTrace(int r,int c,int m,int n){
+		int[][] memorize = new int[m+1][n+1];
+		return backTrace(r,c,m,n,memorize);
+	}
+
+	public static int backTrace(int r,int c,int m,int n,int[][] memorize){
+		if(r==0){
+			memorize[r][c] = 1;
+			return 1;
+		}
+		if(c==0){
+			memorize[r][c] = 1;
+			return 1;
+		}
+		if(memorize[r][c]==0){
+			memorize[r][c] = backTrace(r-1,c,m,n,memorize)+backTrace(r,c-1,m,n,memorize);
+			return memorize[r][c];
+		}
+		else
+			return memorize[r][c];
+	}
+}
+
+
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(findOne(new int[]{1,1,2,2,3,4,4,5,5,6,6,7,7}));
+	}
+	public static int findOne(int[] A){
+		Set<Integer> set = new HashSet<>();
+		for(int i:A){
+			if(set.contains(i))
+				set.remove(i);
+			else set.add(i);
+		}
+		return set.iterator().next();
+	}
+
+}
+
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(findOne(new int[]{123,123,123,5,6,6,6}));
+	}
+
+	public static int findOne(int[] A){
+		int[] count = new int[32];
+		int res=0;
+		for(int i=0;i<32;i++){
+			for(int j=0;j<A.length;j++){
+					count[i] +=((A[j]>>i) & 1);
+			}
+			res |= ((count[i] %=3)<<i);
+		}
+		return res;
+	}	
+
+}
+//misc 非常巧妙！！
+    public List<Integer> spiralOrder(int[][] matrix) {
+		List<Integer> l = new ArrayList<>();
+		int m = matrix.length;
+		if(m==0) return l;
+		int n = matrix[0].length;
+		int r=0,c=-1;
+		while(true){
+			for(int i=0;i<n;i++)
+				l.add(matrix[r][++c]);
+			if(--m==0)break;
+			for(int i=0;i<m;i++)
+				l.add(matrix[++r][c]);
+			if(--n==0)break;
+			for(int i=0;i<n;i++)
+				l.add(matrix[r][--c]);
+			if(--m==0)break;
+			for(int i=0;i<m;i++)
+				l.add(matrix[--r][c]);
+			if(--n==0)break;
+		}
+		return l;	
+    }
+
+	private static final int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+	private static final String[] symbols = {"M","CM","D","CD","C","XC","L","XL","X","IX",
+						"V","IV","I"};
+	public static String intToRoman(int num){
+		StringBuilder res = new StringBuilder();
+		int k;
+		int j=0;
+		while(num != 0){
+			k = num/values[j];
+			for(int i=0;i<k;i++){
+				num -= values[j];
+				res.append(symbols[j]);
+			}
+			j++;
+		}
+		return res.toString();
+	}
+
+//spiral matrix II
+ public class Solution{
+	public static void main(String[] args){
+		System.out.println();
+		int[][] m = generateMatrix(2);
+		for (int i = 0; i < 2; i++) {
+		    for (int j = 0; j < 2; j++) {
+		        System.out.print(m[i][j] + " ");
+		    }
+		    System.out.print("\n");
+		}
+	}
+    public static int[][] generateMatrix(int n) {
+		int[][] matrix = new int[n][n];
+		if(n==0) return matrix;
+		int m = n;
+		int count = 0;
+		int r=0,c=-1;
+		while(true){
+			for(int i=0;i<n;i++)
+				matrix[r][++c] = ++count;
+			if(--m==0)break;
+			for(int i=0;i<m;i++)
+				matrix[++r][c] = ++count;
+			n--;
+			for(int i=0;i<n;i++)
+				matrix[r][--c] = ++count;
+			if(--m==0)break;
+			for(int i=0;i<m;i++)
+				matrix[--r][c] = ++count;
+			n--;
+		}
+		return matrix;
+    }
+}
+
+
+
+	private static final int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+	private static final String[] symbols = {"M","CM","D","CD","C","XC","L","XL","X","IX",
+						"V","IV","I"};
+	public static String intToRoman(int num){
+		StringBuilder res = new StringBuilder();
+		int k;
+		int j=0;
+		while(num != 0){
+			k = num/values[j];
+			for(int i=0;i<k;i++){
+				num -= values[j];
+				res.append(symbols[j]);
+			}
+			j++;
+		}
+		return res.toString();
+	}
+
+// romanToInt
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(romanToInt("MXC"));
+	}
+
+	private static Map<Character,Integer> map = 
+			new HashMap<Character,Integer>(){{
+		put('I',1);put('V',5);put('X',10);put('L',50);
+		put('C',100);put('D',500);put('M',1000);
+		}};
+	
+	public static int romanToInt(String s){
+		int prev=0,curr=0;
+		int sum = 0;
+		for(char i:s.toCharArray()){
+			curr = map.get(i);
+			if(curr>prev)
+				sum += (curr-2*prev);
+			else sum += curr;
+			prev = curr;
+		}
+		return sum;
+	}
+}
+
+
+
+
+//valid parenthese
+public class Solution{
+	public static void main(String[] args){
+		System.out.println(isValid("[](){}"));
+	}
+	private static Map<Character,Character> map = new HashMap<Character,Character>(){{
+		put('(',')');put('{','}');put('[',']');}};
+	public static boolean isValid(String s){
+		Stack<Character> stack = new Stack<>();
+		for(char c:s.toCharArray()){
+			if(map.containsKey(c))
+				stack.push(c);
+			else if(stack.isEmpty())return false;
+			else if(map.get(stack.pop()) == c) continue;
+			else return false;
+		}
+		return stack.isEmpty();
+	}
+}
+
+		
+//evaluate reverse polish notation
+public class Solution{
+	public static void main(String[] args){
+		char[] ch = {'2','1','9','+','/'};
+		Solution sol = new Solution();
+		System.out.println(sol.value(ch));
+	}
+	private final HashSet<Character> OPERATOR = 
+			new HashSet<>(Arrays.asList('+','-','*','/'));
+	public int value(char[] tokens){
+		Stack<Integer> stack = new Stack<>();
+		for(char c:tokens){
+			if(OPERATOR.contains(c)){
+				int y = stack.pop();
+				int x = stack.pop();
+				stack.push(eval(y,x,c));
+			}
+			else stack.push(Integer.parseInt(String.valueOf(c)));
+		}
+		return stack.pop();
+	}
+	public int eval(int y,int x,char c){
+		switch(c){
+		case '+':return y+x;
+		case '-':return y-x;
+		case '*':return y*x;
+		default:return y/x;
+		}
+	}
+
+}
+//rotate
+public class Solution{
+	public static void main(String[] args){
+		String[] ch = {"1","20","10","/","+"};
+		Solution sol = new Solution();
+		int[] c = {1,2,3,4,5,6,7,8,9};
+		sol.rotate(c,10);
+		System.out.println(Arrays.toString(c));
+	}
+    public void rotate(int[] nums, int k) {
+        int len = nums.length - 1;
+        if(k > len+1)
+            k %= (len+1);
+        int[] temp = new int[k];
+        for(int i=k-1; i>=0; i--){
+            temp[i] = nums[len--];
+        }
+        
+        for(int i=len; i>=0; i--){
+            nums[i+k] = nums[i];
+        }
+        
+        for(int i=0;i<k;i++){
+            nums[i] = temp[i];
+        }
+    }
+}
+
+//reverse bits
+public class Solution{
+	public static void main(String[] args){
+		String[] ch = {"1","20","10","/","+"};
+		Solution sol = new Solution();
+		System.out.println(sol.reverseBits(30));
+	}
+    public int reverseBits(int n) {
+        int[] count = new int[32];
+        int res = 0;
+        for(int i=0;i<32;i++)
+            count[i] += ((n>>i) & 1);
+        reverse(count);
+        for(int i=0;i<32;i++)
+            res |= (count[i]<<i);
+        return res;
+    }
+    public void reverse(int[] A){
+        int len = A.length;
+        for(int i=0; i<len/2; i++){
+            int temp = A[i];
+            A[i] = A[len-1-i];
+            A[len-1-i] = temp;
+        }
+    }
+}
+		
+
+
+//factorial trailing zeros
+public class Solution{
+	public static void main(String[] args){
+		String[] ch = {"1","20","10","/","+"};
+		Solution sol = new Solution();
+		System.out.println(sol.trailingZeroes(40));
+	}
+    public int trailingZeroes(int n) {
+        int res = 0;
+        long i = 5;
+        while(i<=n){
+            res += n/i;
+            i = i*5;
+        }
+        return res;
+    }
+}
+
+//unique path I
+public class Solution {
+    public int uniquePaths(int m, int n) {
+        if(m==0 || n==0)    return 0;
+        int[][] dp = new int[m][n];
+        
+        for(int i=0;i<m;i++)
+            dp[i][0]=1;
+        for(int i=0;i<n;i++)
+            dp[0][i]=1;
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                dp[i][j]=dp[i-1][j]+dp[i][j-1];
+            }
+        }
+        
+        return dp[m-1][n-1];
+    }
+}
+

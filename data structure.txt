@@ -1,0 +1,632 @@
+public class DList{
+	protected int size;
+	protected DNode header,trailer;
+	public DList(){
+	size = 0;
+	header = new DNode(null,null,null);
+	trailer = new DNode(null,header,null);
+	header.next = trailer;
+	}
+	public int size(){return size;}
+	public boolean isEmplty(){return size==0;}
+	public DNode getFirst()throws IllegalStateException{
+		if(isEmpty())
+			throw new IllegalStateException("no element in DList");
+		return header.next;
+	}
+	public DNode getLast()throws IllegalStateException{
+		if(isEmpty())
+			throw new IllegalStateException("no element in DList");
+		return trailor.prev;
+	}
+	public DNode getPrev(DNode v)throws IllegalStateException{
+		if(v==head)
+			throw new IllegalStateException("can not move back past the header");
+		return v.prev;
+	}
+	public DNode getNext(DNode v)throws IllegalStateException{
+		if((v==trailor)
+			throw new IllegalStateException("can not move back past the header");
+		return v.next;
+	}
+	public void addBefore(DNode v,DNode z)throws IllegalArgumentException{
+		DNode u = getPrev(v);
+		z.next = v;
+		u.next = z;
+		z.prev = u;
+		v.prev = z;
+		size++;
+	}
+	public void addAfter(DNode v,DNode z)throws IllegalArgumentException{
+		DNode u = getNext(v);
+		z.next = u;
+		v.next = z;
+		z.prev = v;
+		u.prev = z;
+		size++;
+	}
+	public void addFirst(DNode v){
+		addBefore(getFirst(),v);
+	}
+	public void addLast(DNode v){
+		addAfter(getLast(),v);
+	}
+	public void remove(DNode v)throws IllegalArgumentException{
+		u = v.getPrev();
+		z = v.getNext();
+		u.next = z;
+		z.prev = u;
+		v.next = null;
+		v.prev = null;
+		size--;
+	}
+	public boolean hasPrev(DNode v){
+		if(v != header)
+			return ture;
+		else
+			return false;
+	}
+	public boolean hasNext(DNode v){
+		if(v != trailor)
+			return ture;
+		else
+			return false;
+	}
+	public String toString(){
+		String s = "[";
+		DNode p = header;
+		p = p.next;
+		while(p!= trailor){
+			s += p.element;
+			p=p.next;
+		}
+		return s+"]";
+	}
+}
+
+public class CircleList{
+	protected int size;
+	protected Node cursor;
+	public CircleList(){
+		size = 0;
+		cursor = null;
+	}
+	public int size(){return size;}
+	public Node getCursor(){return cursor;}
+	public void advance(){cursor = cursor.next;}
+	public void add(Node v){//after the cursor
+		if(cursor == null)
+			cursor = v;
+			cursor.next = cursor;
+		else{
+			Node u = cursor.next;
+			cursor.next = v;
+			v.next = u;
+		}
+		size++;
+	}
+	public void remove(){//after the cursor
+		Node u = cursor.next;
+		if(u == cursor)
+			cursor = null;
+		else{
+			cursor.next = cursor.next.next;
+			u.next = null;
+		}
+		size--;
+	}
+	public String toString(){
+		if(cursor == null) return "[]";
+		String s = "[" + cursor.element;
+		Node start = cursor;
+		cursor = cursor.next;	
+		while(cursor!= start){
+			s += cursor.element;
+			advance();
+		}
+		s += "]";
+		return s;
+	}
+
+
+//insertion sort
+public static sort(DList L){
+	DNode ins;
+	DNode pivot;
+	DNode end = L.getFirst();
+	while(end != L.getLast()){
+		pivot = end.next;
+		L.remove(pivot);
+		ins = end;
+		while(ins.prev!=null && pivot.element.compareTo(ins.element)<0)
+			ins = ins.prev;
+		L.addAfter(ins,pivot);
+		if(ins==end)
+			end=end.next;
+	}
+}
+
+//factorial
+public static int factorial(int n){
+	if(n==0) return 1;
+	else return n*factorial(n-1);
+}
+		
+
+
+//summing the elements of an array recursively
+public static int sum(int[] A,int n){//n should be equal A.length-1
+	if(n==0) return A[0];
+	return A[n]+sum(A,n-1);
+}
+//reverse array
+public void reverseArray(int[] A){
+	return reverseArray(A,0,A.length-1);
+}
+private void reverseArray(int[] A,int i,int j){
+	if(i<j) swap(A,A[i],A[j]);
+	return reverseArray(A,i+1,j-1);
+}
+
+//find single in three(leetcode)
+public static int find(int[] A){
+	int[] count = new int[32];
+	int res;
+	for(int bit = 0;bit<32,bit++){
+		for(int i = 0;	i<A.length;	i++)
+			count[bit] += (A[i]>>i&1);
+		count[bit] %= 3;
+	}
+	for(int bit = 31;bit>=0;bit++)
+		res = 2*res+count[bit];
+	return res;
+}
+
+
+
+
+//fibonacci
+public static int fibonacci(int n){
+	if(n<=1)
+		return 1;
+	else 
+		return fibonacci(n-1)+fibonacci(n-2);
+}
+
+//ÇÉÃîdp
+	public static int[] fibonacci(int n){
+		if(n<1)
+			return new int[]{1,0};
+
+		int[] res = fibonacci(n-1);
+		int temp = res[0];
+		res[0] = res[0] + res[1];
+		res[1] = temp;
+		return res;
+	}
+
+
+public class EmptyClassException extends RuntimeException(){
+	public EmptyClassException(String s){
+		super(s);
+	}
+}
+
+
+
+public class ArrayStack<E> implements Stack<E>{
+	private int size = 0;
+	private int capacity;
+	private final int CAPACITY = 1000;
+	private E[] A;
+	public ArrayStack(){
+		this(CAPACITY);
+		A = (E[])new Object[capacity];
+	}
+	public ArrayStack(int s){
+		capacity = s;
+		A = (E[])new Object[capacity];
+	}
+	public boolean isEmpty(){return size == 0;}
+	public E top()throws EmptyStackException{
+		if(size == 0)
+			throw new EmptyStackException("no element inside ");
+		return A[size-1];
+	}
+	public void push (E element)throws FullStackException{
+		if(size==capacity)
+			throw new FullStackException("the stack is full");
+		A[size] = element;
+		size ++;
+	}
+	public E pop()throws EmptyStackException{
+		if(size == 0)
+			throw new EmptyStackException("no element inside ");
+		E element = A[size-1];
+		A[size-1] = null;
+		size--;
+		return element;
+	}
+	public String toString(){
+		if(size==0) return "[]";
+		String s = "[" + A[0];
+		for(int i = 0;i<size;i++){
+			s = s + "," + A[i];
+		}
+		s += "]";
+		return s;
+	}
+}
+
+
+
+public class Node<E>{
+	private E element;
+	private Node<E> next;
+	public Node(){
+		this(null,null);
+	}
+	public Node(E e,Node<E> n)
+		element=e;
+		next=n;
+	}
+	public E getElement(){return element;}
+	public E getNext(){return n;}
+	public void setElement(E e){element=e;}
+	public void setNext(Node<E> n){next=n;}
+}
+
+
+public class NodeStack<E> implements Stack<E>{
+	private Node<E> top;
+	private int size;
+	public NodeStack(){
+		this(null);
+		size=0;
+	}
+	public NodeStack(Node<E> t){
+		top = t;
+		size=1;
+	}
+	public int size(){return size;}
+	public boolean isEmpty(){return size==0;}
+	public E getTop()throws EmptyStackException{
+		if(size==0)
+			throw new EmptyStackException("no element in stack");
+		return top.getElement();
+	}
+	public void push(Node<E> n){
+		n.getNext()=top;
+		top=n;
+	} 
+	public E pop()throws EmptyStackException{
+		if(size==0)
+			throw new EmptyStackException("no element in stack");
+		size--;
+		element = top.getElement();
+		top = top.getNext();
+		return element;
+	}
+}
+
+
+
+//reversing an array using a stack
+public static void reverse(E[] A){
+	Stack<E> s = new ArrayStack<E>(A.length);
+	for(int i=0;i<A.length;i++)
+		s.push(s[i]);
+	for(int i=0;i<A.length;i++)
+		A[i]=s.pop();
+}
+
+//brackets match
+
+	public static void main(String[] args){
+		System.out.println(parentMatch("()((((("));
+	}
+	public static boolean parentMatch(String s){
+	Stack<Character> st = new Stack<Character>();
+	char[] c = s.toCharArray();
+	for(int i=0;i<c.length;i++){
+		if(c[i]=='['||c[i]=='{'||c[i]=='(')
+			st.push(c[i]);
+		else if (st.isEmpty()) return false;
+		else if((c[i]==']') && (st.peek()=='['))
+			st.pop();
+		else if((c[i]=='}') && (st.peek()=='{'))
+			st.pop();
+		else if((c[i]==')') && (st.peek()=='('))
+			st.pop();
+		else return false;
+	}
+	if (st.isEmpty())
+		return true;
+	else return false;
+	}
+
+
+
+public interface Queue<E>{
+	public int size();
+	public boolean isEmpty();
+	public E getFront()throws EmptyQueueException;
+	public void enqueue(E element);
+	public E remove()throws EmptyQueueException;
+}
+
+
+
+
+public void enqueue(E element){
+	Node<E> node = new Node<E>(element,null);
+	if(size==0){
+		head=n;
+		tail=n;
+	}	
+	else{tail.setNext(n);
+		tail = n;
+	}
+	size++;
+}
+	
+
+
+public E dequeue()throws EmptyQueueException{
+	if(size==0)
+		throw new EmptyQueueException("queue is empty");
+	E element = head.getElement;
+	Node<E> temp = head;
+	head = head.getNext();
+	temp.setNext(null);
+	temp = null;
+	size--;
+	if(size==0)
+		tail==null;
+	return element;
+}
+
+
+
+
+	public static Queue<Integer> inQ(int[] A){
+		Queue<Integer> q = new LinkedList<Integer>();
+		for(int i=0;i<A.length;i++){
+			q.add(A[i]);
+		}
+		return q;
+	}
+	public static int game(Queue<Integer> q,int k){
+		while(q.size()!=1){
+			for(int i=0;i<k;i++){
+				q.add(q.poll());
+			}
+			q.poll();
+		}
+		return q.poll();
+	}
+	
+
+
+
+
+
+public interface Deque<E>{
+	public boolean isEmpty();
+	public int size();
+	public void addFirst(E e);
+	public void addLast(E e);
+	public E getFirst()throws EmptyDequeException;
+	public E getLast()throws EmptyDequeException;
+	public E removeFirst()throws EmptyDequeException;
+	public E removeLast()throws EmptyDequeException;
+}
+
+
+
+
+
+public class NodeDeque<E> implements Deque<E>{
+	private DNode<E> head,tail;
+	private int size;
+	public NodeDeque(){
+		head = new DNode<E>();
+		tail = new DNode<E>(head,null,null);
+		head.setNext(tail);
+		size = 0;
+	}
+	public int size(){return size;}
+	public boolean isEmpty(){return size==0};
+	public void addFirst(E e){
+		DNode<E> node = new DNode<E>(head,head.getNext(),e);
+		head.getNext().setPrev(node);
+		head.setNext(node);
+		size++;
+	}
+	public void addLast(E e){
+		DNode<E> node = new DNode<E>(tail.getPrev(),tail,e);
+		tail.getPrev.setNext(node);
+		tail.setPrev(node);
+		size++;
+	}
+	public E getFirst()throws EmptyDequeException{
+		if(size==0)
+			throw new EmptyDequeException("no element");
+		return head.getNext().getElement();
+	}
+	public E getLast() throws EmptyDequeException{
+		if(size==0)
+			throw new EmptyDequeException("no element");
+		return tail.getPrev().getElement();
+	}
+	public E removeFirst() throws EmptyDequeException{
+		if(size==0)
+			throw new EmptyDequeException("no element");
+		DNode<E> node = head.getNext();
+		head.setNext(node.getNext());
+		node.getNext().setPrev(head);
+		node.setPrev(null);
+		node.setNext(null);
+		size--;
+		return node.getElement();
+	}
+
+
+	public E removeLast() throws EmptyDequeException{
+		if(size==0)
+			throw new EmptyDequeException("no element");
+		DNode<E> node = tail.getPrev();
+		node.getPrev().setNext(tail);
+		node.setPrev(null);
+		node.setNext(null);
+		size--;
+		return node.getElement();
+	}
+
+}
+
+
+
+public interface IndexList<E>{
+	public int size();
+	public boolean isEmpty();
+	public void add(int i,E element)throws IndexOutOfBoundarysException;
+	public E remove(int i)throws IndexOutOfBoundarysException;
+	public E set(int i,E element)throws IndexOutOfBoundarysException;
+	public E get(int i)throws IndexOutOfBoundarysException;
+}
+
+public class ArrayIndexList<E> implements IndexList<E>{
+	private int size;
+	private int capacity;
+	private E[] arr;
+	public ArrayIndexList(int capacity){
+		arr = new E[capacity];
+		size = 0;
+	}
+	public int size(){return size;}
+	public boolean isEmpty(){return size==0;}
+	public void add(int i, E element)throws IndexOutOfBoundaryException{
+		if(i+1>capacity)
+			throw new IndexOutOfBoundaryException("out of boundary");
+		if(size-1<i)
+			E[i] = element;
+		else{
+			for(int k=size;k>i;k--)
+				arr[k] = arr[k-1];
+			arr[i]=element;
+		}
+		size++;
+	}
+	public E remove(int i){
+		if(i+1>size)
+			throw new IndexOutOfBoundaryException("out of boundary");
+		E temp = arr[i];
+		for(int k=i;k<size-1;k++)
+			arr[k] = arr[k+1];
+		arr[k]=null;
+		size--;
+		return temp;
+	}	
+
+}
+	
+
+
+
+public interface position<E>{
+	public E element();
+}
+
+
+
+public interface PositionList<E>{
+	public int size();
+	public boolean isEmpty();
+	public Position<E> first();
+	public Position<E> last();
+	public Position<E> next(Position<E> p)throws InvalidPositionException,BoundaryViolationException;
+	public Position<E> prev(Position<E> p)throws InvalidPositionException,BoundaryViolationException;
+	public void addFirst(E e);
+	public void addLast(E e);
+	public void addBefore(Position<E> p,E element)throws InvalidPositionException;
+	public void addAfter(Position<E> p,E element)throws InvalidPositionException;
+	public E remove(Position<E> p);
+	public void set(Position<E> p,E element)throws InvalidPositionException;
+}
+
+
+
+
+
+public class DNode<E> implements Position<E>{
+	DNode<E> prev,next;
+	E element;
+	public DNode<E>(DNode<E> one,DNode<E> two,e){
+		prev = one;
+		next = two;
+		element = e;
+	}
+	public E element()throws InvalidPositionException{
+		if(prev==null && next==null)
+			throw new InvalidPositionException("not in the list");
+		return element;
+	}
+	public setNext();
+}
+
+
+
+
+public interface Sequence<E> extends Deque<E>,ArrayList<E>,NodeList<E>{
+	public Position<E> atIndex (int i)throws OutOfBoundaryException;
+	public int indexOf (Position<E>)throws InvalidPositionException;
+}
+
+
+
+
+public class FavouriteList<E>{
+	private PositionList<Entry<E>> fList;
+	public FavouriteList(){fList = new NodePositionList<Entry<E>>();}
+	private static class Entry<E>{
+		private E value;
+		private int count;
+		Entry(E v){count=1;value=v;}
+	}
+}
+
+
+static int hashCode(String s){
+	int h=0;
+	for(int i=0;i<s.length();i++){
+		h = (h<<5|h>>27);
+		h += (int)s.charAt(i);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
